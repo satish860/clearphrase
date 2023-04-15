@@ -73,25 +73,99 @@ export default function Home() {
       <main>
         <div className=" container flex flex-col lg:mt-20 h-screen">
           <div className="flex flex-row items-center border-2 border-solid border-b-gray-600">
+            <div className="flex-none hidden sm:block">
             <div className="navbar bg-base-100">
               <a className="btn btn-ghost normal-case text-xl">Modes:</a>
               <ul className="menu flex flex-row space-x-3">
+                  <li
+                    onClick={() => handleItemClick("Standard", "British")}
+                    className={`menu-title cursor-pointer ${
+                      selectedItem?.tone === "Standard"
+                        ? "border-b-2 border-green-500"
+                        : ""
+                    }`}
+                  >
+                    <span
+                      className={`text-lg ${
+                        selectedItem?.tone === "Standard" ? "text-green-500" : ""
+                      }`}
+                    >
+                      Standard
+                    </span>
+                  </li>
+                
                 <li
-                  onClick={() => handleItemClick("Standard", "British")}
+                  onClick={() => handleItemClick("Fluency", "British")}
                   className={`menu-title cursor-pointer ${
-                    selectedItem?.tone === "Standard"
+                    selectedItem?.tone === "Fluency"
                       ? "border-b-2 border-green-500"
                       : ""
                   }`}
                 >
                   <span
                     className={`text-lg ${
-                      selectedItem?.tone === "Standard" ? "text-green-500" : ""
+                      selectedItem?.tone === "Fluency" ? "text-green-500" : ""
                     }`}
                   >
-                    Standard
+                    {" "}
+                    Fluency
                   </span>
                 </li>
+                <li
+                  onClick={() => handleItemClick("Formal", "British")}
+                  className={`menu-title cursor-pointer ${
+                    selectedItem?.tone === "Formal"
+                      ? "border-b-2 border-green-500"
+                      : ""
+                  }`}
+                >
+                  <span
+                    className={`text-lg ${
+                      selectedItem?.tone === "Formal" ? "text-green-500" : ""
+                    }`}
+                  >
+                    Formal
+                  </span>
+                </li>
+                <li
+                  onClick={() => handleItemClick("Simple", "British")}
+                  className={`menu-title cursor-pointer ${
+                    selectedItem?.tone === "Simple"
+                      ? "border-b-2 border-green-500"
+                      : ""
+                  }`}
+                >
+                  <span
+                    className={`text-lg ${
+                      selectedItem?.tone === "Simple" ? "text-green-500" : ""
+                    }`}
+                  >
+                    Simple
+                  </span>
+                </li>
+              </ul>
+            </div>
+            </div>
+            <div className="dropdown dropdown-bottom flex-none block sm:hidden">
+              <label tabIndex={0} className="btn m-1">Modes</label>
+              <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+              <li
+                    onClick={() => handleItemClick("Standard", "British")}
+                    className={`menu-title cursor-pointer ${
+                      selectedItem?.tone === "Standard"
+                        ? "border-b-2 border-green-500"
+                        : ""
+                    }`}
+                  >
+                    <span
+                      className={`text-lg ${
+                        selectedItem?.tone === "Standard" ? "text-green-500" : ""
+                      }`}
+                    >
+                      Standard
+                    </span>
+                  </li>
+                
                 <li
                   onClick={() => handleItemClick("Fluency", "British")}
                   className={`menu-title cursor-pointer ${
