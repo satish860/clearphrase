@@ -86,6 +86,27 @@ sentence: {sentence}
 YOUR {tone} RESPONSE:
 `
 
+const CreativeTemplate = `
+Below is an sentence that may be poorly worded.
+Your goal is to:
+- Convert the sentence to a creative tone like social media influencer
+- Make sure the meaning reamins the same
+- Correct the grammar and spelling
+
+Here are some examples of this Tone:
+- Excited to meet with my boss this afternoon to discuss the progress of the project! #worklife #career #meetingtime
+- Just had a meeting with my legal team to review the contract and ensure that all terms and conditions meet our standards. #business #legal #contracts
+- Hey guys! It's crucial that we schedule a follow-up call with our amazing client to address their concerns and provide them with the answers they need. Let's make sure we're giving them the top-notch service they deserve! #clientcare #customerservice #followup
+- The legal team is meticulously examining the situation to determine if anyone can be held accountable. #legalteam #responsibility #justice
+- Just spent some time reviewing my company's policies and processes to ensure that we are in compliance with all laws and regulations. #compliance #lawabidingcitizen #corporatelife
+
+Below is the sentence, tone:
+TONE: {tone}
+sentence: {sentence}
+
+YOUR {tone} RESPONSE:
+`
+
 
 
 export default async function handler(
@@ -103,6 +124,9 @@ export default async function handler(
     }
     else if(tone === 'Simple'){
       var promptTemplate = SimpleTemplate
+    }
+    else if(tone === 'Creative'){
+      var promptTemplate = CreativeTemplate
     }
     else{ 
       var promptTemplate = standardTemplate

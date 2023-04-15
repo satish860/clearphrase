@@ -143,6 +143,22 @@ export default function Home() {
                     Simple
                   </span>
                 </li>
+                <li
+                  onClick={() => handleItemClick("Creative", "British")}
+                  className={`menu-title cursor-pointer ${
+                    selectedItem?.tone === "Creative"
+                      ? "border-b-2 border-green-500"
+                      : ""
+                  }`}
+                >
+                  <span
+                    className={`text-lg ${
+                      selectedItem?.tone === "Creative" ? "text-green-500" : ""
+                    }`}
+                  >
+                    Creative
+                  </span>
+                </li>
               </ul>
             </div>
             </div>
@@ -213,6 +229,22 @@ export default function Home() {
                     }`}
                   >
                     Simple
+                  </span>
+                </li>
+                <li
+                  onClick={() => handleItemClick("Creative", "British")}
+                  className={`menu-title cursor-pointer ${
+                    selectedItem?.tone === "Creative"
+                      ? "border-b-2 border-green-500"
+                      : ""
+                  }`}
+                >
+                  <span
+                    className={`text-lg ${
+                      selectedItem?.tone === "Creative" ? "text-green-500" : ""
+                    }`}
+                  >
+                    Creative
                   </span>
                 </li>
               </ul>
