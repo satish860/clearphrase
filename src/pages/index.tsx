@@ -2,7 +2,7 @@ import {Bars3CenterLeftIcon} from "@heroicons/react/24/outline";
 
 export default function Home() {
   return (
-    <header className="flex flex-row justify-between z-50 h-14 bg-white">
+    <header className="flex flex-row justify-between z-50 h-14" data-theme="light">
       <div className="flex items-center">
         <Bars3CenterLeftIcon className="h-6 w-6 cursor-pointer" />
         <h1 className="text-xl font-bold p-4">Quillbot</h1>
