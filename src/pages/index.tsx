@@ -21,7 +21,7 @@ export default function Home() {
     fetch("/api/Parapharser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ item, sentence }),
+      body: JSON.stringify({ tone:item.tone, sentence }),
     })
       .then((response) => response.json())
       .then((data: ApiResponse) => setApiResult(data.result))

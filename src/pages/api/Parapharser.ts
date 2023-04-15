@@ -3,47 +3,116 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { OpenAI } from 'langchain/llms/openai'
 import { PromptTemplate } from 'langchain/prompts'
 
-const promptTemplate = `
+const standardTemplate = `
 Below is an sentence that may be poorly worded.
 Your goal is to:
 - Properly format the sentence
 - Convert the input text to a specified tone
-- Convert the input text to a specified dialect
-Here are some examples different Tones:
-- Standard: This tutorial provides a brief explanation of how to use LangChain to create an end-to-end language model application.
-- Fluency: This article will lead you through the process of creating an end-to-end language model application with LangChain. 
-- Formal: This tutorial provides an overview of how to construct an end-to-end language model application using LangChain.
-Here are some examples of words in different dialects:
-- American: French Fries, cotton candy, apartment, garbage, cookie, green thumb, parking lot, pants, windshield
-- British: chips, candyfloss, flag, rubbish, biscuit, green fingers, car park, trousers, windscreen
-Example Sentences from each dialect:
-- American: I headed straight for the produce section to grab some fresh vegetables, like bell peppers and zucchini. After that, I made my way to the meat department to pick up some chicken breasts.
-- British: Well, I popped down to the local shop just the other day to pick up a few bits and bobs. As I was perusing the aisles, I noticed that they were fresh out of biscuits, which was a bit of a disappointment, as I do love a good cuppa with a biscuit or two.
+- Correct the grammar and spelling
 
+Here are some examples of properly formatted sentences:
+- This afternoon, my boss and I will meet to talk about how the project is coming along.
+- The contract is being examined by attorneys to make sure all of the clauses are valid under the law.
+- The client has to be contacted again so we may address their concerns and address any questions they may have.
+- The legal group is looking at the situation carefully to identify any potential liabilities.
 
-Below is the sentence, tone, and dialect:
+Below is the sentence, tone:
 TONE: {tone}
-DIALECT: {dialect}
 sentence: {sentence}
 
-YOUR {dialect} RESPONSE:
+YOUR {tone} RESPONSE:
 `
+
+const FluencyTemplate = `
+Below is an sentence that may be poorly worded.
+Your goal is to:
+- Properly format the sentence in Fluent English
+- Convert the input text to a specified tone
+- Correct the grammar and spelling
+
+Here are some examples of Fluent Tone:
+- This afternoon, I'll meet with my supervisor to discuss my project progress.
+- The contract is being reviewed by lawyers to ensure that all of the terms and conditions are legally valid.
+- We must plan a call with the client to discuss their concerns and answer any questions they may have.
+- The legal team is doing an extensive examination to ascertain any potential obligations.
+- To guarantee compliance with all applicable laws and regulations, I must review the company's policies and procedures.
+
+Below is the sentence, tone:
+TONE: {tone}
+sentence: {sentence}
+
+YOUR {tone} RESPONSE:
+`
+
+const FormalTemplate = `
+Below is an sentence that may be poorly worded.
+Your goal is to:
+- Properly format the sentence in Formal English
+- Convert the input text to a specified tone
+- Correct the grammar and spelling
+
+Here are some examples of Formal Tone:
+-This afternoon, I will meet with my supervisor to discuss my project progress.
+-The attorneys are evaluating the contract to ensure that all terms and conditions comply with the law.
+-We must schedule a follow-up call with the client in order to address their concerns and answer their inquiries.
+-The legal team is conducting a comprehensive investigation to identify any potential liabilities.
+-To ensure compliance with all applicable laws and regulations, I must review the company's policies and procedures.
+
+Below is the sentence, tone:
+TONE: {tone}
+sentence: {sentence}
+
+YOUR {tone} RESPONSE:
+`
+
+const SimpleTemplate = `
+Below is an sentence that may be poorly worded.
+Your goal is to:
+- Properly simplify the sentence without changing the meaning
+- Convert the input text to a specified tone
+- Correct the grammar and spelling
+
+Here are some examples Simple Tone:
+- This afternoon, I'm meeting with my boss to talk about how the project is going.
+- Lawyers are looking over the contract to make sure that all of the terms and conditions are acceptable.
+- We need to set up a follow-up call with the client to talk about their worries and answer any questions they may have.
+- The law team is looking into the situation carefully to see if anyone could be held responsible.
+- I have to look over the company's policies and processes to make sure they follow all laws and rules.
+
+Below is the sentence, tone:
+TONE: {tone}
+sentence: {sentence}
+
+YOUR {tone} RESPONSE:
+`
+
+
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-
   if (req.method === 'POST') {
-    const { tone, dialect, sentence } = req.body;
+    const { tone, sentence } = req.body
     const Envir = process.env.OPENAI_API_KEY
     const model = new OpenAI({ openAIApiKey: Envir, temperature: 0.9 })
+    if(tone === 'Fluency'){
+      var promptTemplate = FluencyTemplate
+    } else if(tone === 'Formal'){
+      var promptTemplate = FormalTemplate
+    }
+    else if(tone === 'Simple'){
+      var promptTemplate = SimpleTemplate
+    }
+    else{ 
+      var promptTemplate = standardTemplate
+    }
     const prompt = new PromptTemplate({
       template: promptTemplate,
-      inputVariables: ['tone', 'dialect', 'sentence'],
+      inputVariables: ['tone', 'sentence'],
     })
-   
-    const promptText = await prompt.format({ tone, dialect, sentence: sentence })
+
+    const promptText = await prompt.format({ tone, sentence: sentence })
     const modelresponse = await model.call(promptText)
     res.status(200).json({ result: modelresponse })
   } else {
