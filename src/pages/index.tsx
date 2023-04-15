@@ -11,17 +11,21 @@ type ApiResponse = {
 };
 
 export default function Home() {
-  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null);
+  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>({
+    tone: "Standard",
+    dialect: "British",
+  });
   const [sentence, setSentence] = useState("");
   const [apiResult, setApiResult] = useState("");
   const [loading, setLoading] = useState(false);
 
   const callApi = (item: SelectedItem) => {
+    if (!sentence) return;
     setLoading(true);
     fetch("/api/Parapharser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tone:item.tone, sentence }),
+      body: JSON.stringify({ tone: item.tone, sentence }),
     })
       .then((response) => response.json())
       .then((data: ApiResponse) => setApiResult(data.result))
@@ -68,7 +72,7 @@ export default function Home() {
 
       <main>
         <div className=" container flex flex-col lg:mt-20 h-screen">
-          <div className="flex flex-row items-center border-2">
+          <div className="flex flex-row items-center border-2 border-solid border-b-gray-600">
             <div className="navbar bg-base-100">
               <a className="btn btn-ghost normal-case text-xl">Modes:</a>
               <ul className="menu flex flex-row space-x-3">
@@ -80,7 +84,13 @@ export default function Home() {
                       : ""
                   }`}
                 >
-                  <span className="text-lg">Standard</span>
+                  <span
+                    className={`text-lg ${
+                      selectedItem?.tone === "Standard" ? "text-green-500" : ""
+                    }`}
+                  >
+                    Standard
+                  </span>
                 </li>
                 <li
                   onClick={() => handleItemClick("Fluency", "British")}
@@ -90,7 +100,14 @@ export default function Home() {
                       : ""
                   }`}
                 >
-                  <span className="text-lg"> Fluency</span>
+                  <span
+                    className={`text-lg ${
+                      selectedItem?.tone === "Fluency" ? "text-green-500" : ""
+                    }`}
+                  >
+                    {" "}
+                    Fluency
+                  </span>
                 </li>
                 <li
                   onClick={() => handleItemClick("Formal", "British")}
@@ -100,7 +117,13 @@ export default function Home() {
                       : ""
                   }`}
                 >
-                  <span className="text-lg">Formal</span>
+                  <span
+                    className={`text-lg ${
+                      selectedItem?.tone === "Formal" ? "text-green-500" : ""
+                    }`}
+                  >
+                    Formal
+                  </span>
                 </li>
                 <li
                   onClick={() => handleItemClick("Simple", "British")}
@@ -110,7 +133,13 @@ export default function Home() {
                       : ""
                   }`}
                 >
-                  <span className="text-lg">Simple</span>
+                  <span
+                    className={`text-lg ${
+                      selectedItem?.tone === "Simple" ? "text-green-500" : ""
+                    }`}
+                  >
+                    Simple
+                  </span>
                 </li>
               </ul>
             </div>
