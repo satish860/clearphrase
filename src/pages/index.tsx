@@ -217,6 +217,16 @@ export default function Home() {
                 </li>
               </ul>
             </div>
+            <div className="flex-none block sm:hidden ml-auto">
+              <div className="flex flex-row justify-center items-center mt-2 mb-2">
+                <button
+                  onClick={handleApiCall}
+                  disabled={!selectedItem || loading}
+                  className="btn btn-primary">
+                  {loading ? "Loading..." : "Parapharse"}
+                </button>
+              </div>
+            </div>
           </div>
           <div className="flex flex-col w-full lg:flex-row">
             <div className="grid flex-grow h-96 card bg-base-300 rounded-box border-none">
@@ -239,6 +249,7 @@ export default function Home() {
               ></textarea>
             </div>
           </div>
+          <div className="flex-none hidden sm:block">
           <div className="flex flex-row justify-center items-center mt-2">
             <button
               onClick={handleApiCall}
@@ -247,6 +258,7 @@ export default function Home() {
             >
               {loading ? "Loading..." : "Parapharse"}
             </button>
+          </div>
           </div>
         </div>
       </main>
