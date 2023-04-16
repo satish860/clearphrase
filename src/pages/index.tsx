@@ -59,7 +59,15 @@ export default function Home() {
       >
         <div className="flex items-center">
           <Bars3CenterLeftIcon className="h-6 w-6 cursor-pointer" />
-          <h1 className="text-xl font-bold p-4">Quillbot</h1>
+          <h1 className="text-xl font-bold p-4">
+            <span className="text-2xl">
+              C
+            </span>
+            <span className="text-sm">
+            learphrase
+            </span>
+            <sup className="text-xs font-medium text-secondary-600 transform scale-75">Beta</sup>
+          </h1>
         </div>
         <div className="flex items-center">
           <div className="avatar pr-4">
@@ -74,9 +82,9 @@ export default function Home() {
         <div className=" container flex flex-col lg:mt-20 h-screen">
           <div className="flex flex-row items-center border-2 border-solid border-b-gray-600">
             <div className="flex-none hidden sm:block">
-            <div className="navbar bg-base-100">
-              <a className="btn btn-ghost normal-case text-xl">Modes:</a>
-              <ul className="menu flex flex-row space-x-3">
+              <div className="navbar bg-base-100">
+                <a className="btn btn-ghost normal-case text-xl">Modes:</a>
+                <ul className="menu flex flex-row space-x-3">
                   <li
                     onClick={() => handleItemClick("Standard", "British")}
                     className={`menu-title cursor-pointer ${
@@ -87,101 +95,110 @@ export default function Home() {
                   >
                     <span
                       className={`text-lg ${
-                        selectedItem?.tone === "Standard" ? "text-green-500" : ""
+                        selectedItem?.tone === "Standard"
+                          ? "text-green-500"
+                          : ""
                       }`}
                     >
                       Standard
                     </span>
                   </li>
-                
-                <li
-                  onClick={() => handleItemClick("Fluency", "British")}
-                  className={`menu-title cursor-pointer ${
-                    selectedItem?.tone === "Fluency"
-                      ? "border-b-2 border-green-500"
-                      : ""
-                  }`}
-                >
-                  <span
-                    className={`text-lg ${
-                      selectedItem?.tone === "Fluency" ? "text-green-500" : ""
-                    }`}
-                  >
-                    {" "}
-                    Fluency
-                  </span>
-                </li>
-                <li
-                  onClick={() => handleItemClick("Formal", "British")}
-                  className={`menu-title cursor-pointer ${
-                    selectedItem?.tone === "Formal"
-                      ? "border-b-2 border-green-500"
-                      : ""
-                  }`}
-                >
-                  <span
-                    className={`text-lg ${
-                      selectedItem?.tone === "Formal" ? "text-green-500" : ""
-                    }`}
-                  >
-                    Formal
-                  </span>
-                </li>
-                <li
-                  onClick={() => handleItemClick("Simple", "British")}
-                  className={`menu-title cursor-pointer ${
-                    selectedItem?.tone === "Simple"
-                      ? "border-b-2 border-green-500"
-                      : ""
-                  }`}
-                >
-                  <span
-                    className={`text-lg ${
-                      selectedItem?.tone === "Simple" ? "text-green-500" : ""
-                    }`}
-                  >
-                    Simple
-                  </span>
-                </li>
-                <li
-                  onClick={() => handleItemClick("Creative", "British")}
-                  className={`menu-title cursor-pointer ${
-                    selectedItem?.tone === "Creative"
-                      ? "border-b-2 border-green-500"
-                      : ""
-                  }`}
-                >
-                  <span
-                    className={`text-lg ${
-                      selectedItem?.tone === "Creative" ? "text-green-500" : ""
-                    }`}
-                  >
-                    Creative
-                  </span>
-                </li>
-              </ul>
-            </div>
-            </div>
-            <div className="dropdown dropdown-bottom flex-none block sm:hidden">
-              <label tabIndex={0} className="btn m-1">Modes</label>
-              <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-              <li
-                    onClick={() => handleItemClick("Standard", "British")}
+
+                  <li
+                    onClick={() => handleItemClick("Fluency", "British")}
                     className={`menu-title cursor-pointer ${
-                      selectedItem?.tone === "Standard"
+                      selectedItem?.tone === "Fluency"
                         ? "border-b-2 border-green-500"
                         : ""
                     }`}
                   >
                     <span
                       className={`text-lg ${
-                        selectedItem?.tone === "Standard" ? "text-green-500" : ""
+                        selectedItem?.tone === "Fluency" ? "text-green-500" : ""
                       }`}
                     >
-                      Standard
+                      {" "}
+                      Fluency
                     </span>
                   </li>
-                
+                  <li
+                    onClick={() => handleItemClick("Formal", "British")}
+                    className={`menu-title cursor-pointer ${
+                      selectedItem?.tone === "Formal"
+                        ? "border-b-2 border-green-500"
+                        : ""
+                    }`}
+                  >
+                    <span
+                      className={`text-lg ${
+                        selectedItem?.tone === "Formal" ? "text-green-500" : ""
+                      }`}
+                    >
+                      Formal
+                    </span>
+                  </li>
+                  <li
+                    onClick={() => handleItemClick("Simple", "British")}
+                    className={`menu-title cursor-pointer ${
+                      selectedItem?.tone === "Simple"
+                        ? "border-b-2 border-green-500"
+                        : ""
+                    }`}
+                  >
+                    <span
+                      className={`text-lg ${
+                        selectedItem?.tone === "Simple" ? "text-green-500" : ""
+                      }`}
+                    >
+                      Simple
+                    </span>
+                  </li>
+                  <li
+                    onClick={() => handleItemClick("Creative", "British")}
+                    className={`menu-title cursor-pointer ${
+                      selectedItem?.tone === "Creative"
+                        ? "border-b-2 border-green-500"
+                        : ""
+                    }`}
+                  >
+                    <span
+                      className={`text-lg ${
+                        selectedItem?.tone === "Creative"
+                          ? "text-green-500"
+                          : ""
+                      }`}
+                    >
+                      Creative
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="dropdown dropdown-bottom flex-none block sm:hidden">
+              <label tabIndex={0} className="btn m-1">
+                Modes
+              </label>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li
+                  onClick={() => handleItemClick("Standard", "British")}
+                  className={`menu-title cursor-pointer ${
+                    selectedItem?.tone === "Standard"
+                      ? "border-b-2 border-green-500"
+                      : ""
+                  }`}
+                >
+                  <span
+                    className={`text-lg ${
+                      selectedItem?.tone === "Standard" ? "text-green-500" : ""
+                    }`}
+                  >
+                    Standard
+                  </span>
+                </li>
+
                 <li
                   onClick={() => handleItemClick("Fluency", "British")}
                   className={`menu-title cursor-pointer ${
@@ -254,7 +271,8 @@ export default function Home() {
                 <button
                   onClick={handleApiCall}
                   disabled={!selectedItem || loading}
-                  className="btn btn-primary">
+                  className="btn btn-primary"
+                >
                   {loading ? "Loading..." : "Parapharse"}
                 </button>
               </div>
@@ -282,15 +300,15 @@ export default function Home() {
             </div>
           </div>
           <div className="flex-none hidden sm:block">
-          <div className="flex flex-row justify-center items-center mt-2">
-            <button
-              onClick={handleApiCall}
-              disabled={!selectedItem || loading}
-              className="btn btn-primary"
-            >
-              {loading ? "Loading..." : "Parapharse"}
-            </button>
-          </div>
+            <div className="flex flex-row justify-center items-center mt-2">
+              <button
+                onClick={handleApiCall}
+                disabled={!selectedItem || loading}
+                className="btn btn-primary"
+              >
+                {loading ? "Loading..." : "Parapharse"}
+              </button>
+            </div>
           </div>
         </div>
       </main>
