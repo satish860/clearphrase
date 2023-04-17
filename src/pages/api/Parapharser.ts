@@ -111,6 +111,25 @@ sentence: {sentence}
 
 YOUR {tone} RESPONSE:
 `
+const SummarizeTemplate = `
+Below is an sentence that may be poorly worded.
+Your goal is to: 
+- Strip away the extra words to provide a clear message with less words as possible
+- Correct the grammar and spelling
+- If the user has formed a invalid sentence, the model should return an error message
+
+Here are some examples of this Tone:
+- The new COVID-19 vaccine has been approved for use by the FDA. The vaccine has shown to be highly effective in preventing the spread of the virus, with a success rate of over 95%. It is recommended for use by individuals over the age of 16 and has been approved for emergency use in the United States.
+- In recent years, there has been a growing concern over climate change and its impact on the environment. The use of fossil fuels has been identified as a major contributor to the problem, and many countries have implemented policies to reduce their use. Renewable energy sources such as wind and solar power are becoming increasingly popular, as they offer a cleaner and more sustainable alternative to traditional energy sources.
+- Artificial intelligence is changing the way we live and work. With its ability to process large amounts of data and identify patterns, AI is being used in a wide range of applications, from voice recognition software to self-driving cars. While there are concerns over the potential impact of AI on jobs and privacy, many experts believe that it has the potential to revolutionize numerous industries and improve our lives in countless ways.
+
+
+Below is the sentence, tone:
+TONE: {tone}
+sentence: {sentence}
+
+YOUR {tone} RESPONSE:
+`
 
 
 
@@ -132,6 +151,9 @@ export default async function handler(
     }
     else if(tone === 'Creative'){
       var promptTemplate = CreativeTemplate
+    }
+    else if(tone === 'Summarize'){
+      var promptTemplate = SummarizeTemplate
     }
     else{ 
       var promptTemplate = standardTemplate

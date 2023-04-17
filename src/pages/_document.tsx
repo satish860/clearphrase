@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html data-theme="garden" lang="en">
       <Head title="ClearPhrase">
-        <title>Clearphrase</title>
         <meta property="og:title" content="ClearPhrase" />
         <meta
           property="og:description"

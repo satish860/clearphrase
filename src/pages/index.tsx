@@ -59,7 +59,6 @@ export default function Home() {
         data-theme="light"
       >
         <div className="flex items-center">
-          <Bars3CenterLeftIcon className="h-6 w-6 cursor-pointer" />
           <h1 className="text-xl font-bold p-4">
             <span className="text-2xl">C</span>
             <span className="text-sm">learphrase</span>
@@ -67,13 +66,6 @@ export default function Home() {
               Beta
             </sup>
           </h1>
-        </div>
-        <div className="flex items-center">
-          <div className="avatar pr-4">
-            <div className="w-10 rounded-full">
-              <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-            </div>
-          </div>
         </div>
       </header>
 
@@ -170,6 +162,24 @@ export default function Home() {
                       Creative
                     </span>
                   </li>
+                  <li
+                    onClick={() => handleItemClick("Summarize", "British")}
+                    className={`menu-title cursor-pointer ${
+                      selectedItem?.tone === "Summarize"
+                        ? "border-b-2 border-green-500"
+                        : ""
+                    }`}
+                  >
+                    <span
+                      className={`text-lg ${
+                        selectedItem?.tone === "Summarize"
+                          ? "text-green-500"
+                          : ""
+                      }`}
+                    >
+                      Summarize
+                    </span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -263,6 +273,24 @@ export default function Home() {
                     Creative
                   </span>
                 </li>
+                <li
+                    onClick={() => handleItemClick("Summarize", "British")}
+                    className={`menu-title cursor-pointer ${
+                      selectedItem?.tone === "Summarize"
+                        ? "border-b-2 border-green-500"
+                        : ""
+                    }`}
+                  >
+                    <span
+                      className={`text-lg ${
+                        selectedItem?.tone === "Summarize"
+                          ? "text-green-500"
+                          : ""
+                      }`}
+                    >
+                      Summarize
+                    </span>
+                  </li>
               </ul>
             </div>
             <div className="flex-none block sm:hidden ml-auto">
