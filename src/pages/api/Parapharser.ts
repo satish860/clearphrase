@@ -9,7 +9,8 @@ Your goal is to:
 - Properly format the sentence
 - Convert the input text to a specified tone
 - Correct the grammar and spelling
-- If the user has formed a invalid sentence, the model should return an error message
+- Do not generate an output for a single char input. 
+- If the user has formed an incomplete word or sentence, the model should return an error message 
 
 Here are some examples of properly formatted sentences:
 - This afternoon, my boss and I will meet to talk about how the project is coming along.
@@ -30,7 +31,8 @@ Your goal is to:
 - Properly format the sentence in Fluent English
 - Convert the input text to a specified tone
 - Correct the grammar and spelling
-- If the user has formed a invalid sentence, the model should return an error message
+- Do not generate an output for a single char input. 
+- If the user has formed an incomplete word or sentence, the model should return an error message 
 
 Here are some examples of Fluent Tone:
 - This afternoon, I'll meet with my supervisor to discuss my project progress.
@@ -52,7 +54,8 @@ Your goal is to:
 - Properly format the sentence in Formal English
 - Convert the input text to a specified tone
 - Correct the grammar and spelling
-- If the user has formed a invalid sentence, the model should return an error message
+- Do not generate an output for a single char input. 
+- If the user has formed an incomplete word or sentence, the model should return an error message 
 
 Here are some examples of Formal Tone:
 -This afternoon, I will meet with my supervisor to discuss my project progress.
@@ -74,7 +77,8 @@ Your goal is to:
 - Properly simplify the sentence without changing the meaning
 - Convert the input text to a specified tone
 - Correct the grammar and spelling
-- If the user has formed a invalid sentence, the model should return an error message
+- Do not generate an output for a single char input. 
+- If the user has formed an incomplete word or sentence, the model should return an error message 
 
 Here are some examples Simple Tone:
 - This afternoon, I'm meeting with my boss to talk about how the project is going.
@@ -96,7 +100,8 @@ Your goal is to:
 - Convert the sentence to a creative tone like social media influencer
 - Make sure the meaning reamins the same
 - Correct the grammar and spelling
-- If the user has formed a invalid sentence, the model should return an error message
+- Do not generate an output for a single char input. 
+- If the user has formed an incomplete word or sentence, the model should return an error message 
 
 Here are some examples of this Tone:
 - Excited to meet with my boss this afternoon to discuss the progress of the project! #worklife #career #meetingtime
@@ -116,7 +121,8 @@ Below is an sentence that may be poorly worded.
 Your goal is to: 
 - Strip away the extra words to provide a clear message with less words as possible
 - Correct the grammar and spelling
-- If the user has formed a invalid sentence, the model should return an error message
+- Do not generate an output for a single char input. 
+- If the user has formed an incomplete word or sentence, the model should return an error message 
 
 Here are some examples of this Tone:
 - The new COVID-19 vaccine has been approved for use by the FDA. The vaccine has shown to be highly effective in preventing the spread of the virus, with a success rate of over 95%. It is recommended for use by individuals over the age of 16 and has been approved for emergency use in the United States.
