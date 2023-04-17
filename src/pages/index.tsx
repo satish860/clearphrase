@@ -60,13 +60,11 @@ export default function Home() {
         <div className="flex items-center">
           <Bars3CenterLeftIcon className="h-6 w-6 cursor-pointer" />
           <h1 className="text-xl font-bold p-4">
-            <span className="text-2xl">
-              C
-            </span>
-            <span className="text-sm">
-            learphrase
-            </span>
-            <sup className="text-xs font-medium text-secondary-600 transform scale-75">Beta</sup>
+            <span className="text-2xl">C</span>
+            <span className="text-sm">learphrase</span>
+            <sup className="text-xs font-medium text-secondary-600 transform scale-75">
+              Beta
+            </sup>
           </h1>
         </div>
         <div className="flex items-center">
@@ -282,6 +280,7 @@ export default function Home() {
             <div className="grid flex-grow h-96 card bg-base-300 rounded-box border-none">
               <textarea
                 value={sentence}
+                maxLength={2000}
                 onChange={handleSentenceChange}
                 data-theme="light"
                 placeholder="To Rewrite text,enter or paste your Text here."
