@@ -271,7 +271,7 @@ export default function Home() {
                   disabled={!selectedItem || loading}
                   className="btn btn-primary"
                 >
-                  {loading ? "Loading..." : "Parapharse"}
+                  {loading ? "Loading..." : "Paraphrase"}
                 </button>
               </div>
             </div>
@@ -305,7 +305,7 @@ export default function Home() {
                 disabled={!selectedItem || loading}
                 className="btn btn-primary"
               >
-                {loading ? "Loading..." : "Parapharse"}
+                {loading ? "Loading..." : "Paraphrase"}
               </button>
             </div>
           </div>
