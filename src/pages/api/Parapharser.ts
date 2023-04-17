@@ -9,6 +9,7 @@ Your goal is to:
 - Properly format the sentence
 - Convert the input text to a specified tone
 - Correct the grammar and spelling
+- If the user has formed a invalid sentence, the model should return an error message
 
 Here are some examples of properly formatted sentences:
 - This afternoon, my boss and I will meet to talk about how the project is coming along.
@@ -29,6 +30,7 @@ Your goal is to:
 - Properly format the sentence in Fluent English
 - Convert the input text to a specified tone
 - Correct the grammar and spelling
+- If the user has formed a invalid sentence, the model should return an error message
 
 Here are some examples of Fluent Tone:
 - This afternoon, I'll meet with my supervisor to discuss my project progress.
@@ -50,6 +52,7 @@ Your goal is to:
 - Properly format the sentence in Formal English
 - Convert the input text to a specified tone
 - Correct the grammar and spelling
+- If the user has formed a invalid sentence, the model should return an error message
 
 Here are some examples of Formal Tone:
 -This afternoon, I will meet with my supervisor to discuss my project progress.
@@ -71,6 +74,7 @@ Your goal is to:
 - Properly simplify the sentence without changing the meaning
 - Convert the input text to a specified tone
 - Correct the grammar and spelling
+- If the user has formed a invalid sentence, the model should return an error message
 
 Here are some examples Simple Tone:
 - This afternoon, I'm meeting with my boss to talk about how the project is going.
@@ -92,6 +96,7 @@ Your goal is to:
 - Convert the sentence to a creative tone like social media influencer
 - Make sure the meaning reamins the same
 - Correct the grammar and spelling
+- If the user has formed a invalid sentence, the model should return an error message
 
 Here are some examples of this Tone:
 - Excited to meet with my boss this afternoon to discuss the progress of the project! #worklife #career #meetingtime
