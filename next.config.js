@@ -4,7 +4,5 @@ const nextConfig = {
   reactStrictMode: true,
 }
 
-module.exports = withAxiom({
-   nextConfig
-});
+module.exports = nextConfig;
 
