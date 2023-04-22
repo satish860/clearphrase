@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>ClearPhase</title>
+        <title>ClearPhrase</title>
       </Head>
       <Component {...pageProps} />
 

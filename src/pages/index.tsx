@@ -309,7 +309,6 @@ export default function Home() {
             <div className="grid flex-grow h-96 card bg-base-300 rounded-box border-none">
               <textarea
                 value={sentence}
-                maxLength={2000}
                 onChange={handleSentenceChange}
                 data-theme="light"
                 placeholder="To Rewrite text,enter or paste your Text here."
