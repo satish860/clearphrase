@@ -1,6 +1,6 @@
 import { Bars3CenterLeftIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
-export { reportWebVitals } from 'next-axiom';
+import React, { useState } from "react";
+export { reportWebVitals } from "next-axiom";
 
 type SelectedItem = {
   tone: string;
@@ -33,6 +33,11 @@ export default function Home() {
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   };
+
+  const clearAll = () => {
+    setSentence("");
+    setApiResult("");
+  }
 
   const handleItemClick = (tone: string, dialect: string) => {
     setSelectedItem({ tone, dialect });
@@ -73,7 +78,8 @@ export default function Home() {
         <div className=" container flex flex-col lg:mt-20 h-screen">
           <div className="flex flex-row items-center border-2 border-solid border-b-gray-600">
             <div className="flex-none hidden sm:block">
-              <div className="navbar bg-base-100">
+
+            <div className="navbar bg-base-100">
                 <a className="btn btn-ghost normal-case text-xl">Modes:</a>
                 <ul className="menu flex flex-row space-x-3">
                   <li
@@ -183,6 +189,16 @@ export default function Home() {
                 </ul>
               </div>
             </div>
+
+            <div className="flex justufy-right w-full">
+              <button
+              className="btn btn-secondary"
+              onClick={clearAll}
+              >
+                Clear All
+              </button>
+            </div>
+
             <div className="dropdown dropdown-bottom flex-none block sm:hidden">
               <label tabIndex={0} className="btn m-1">
                 Modes
@@ -274,48 +290,51 @@ export default function Home() {
                   </span>
                 </li>
                 <li
-                    onClick={() => handleItemClick("Summarize", "British")}
-                    className={`menu-title cursor-pointer ${
-                      selectedItem?.tone === "Summarize"
-                        ? "border-b-2 border-green-500"
-                        : ""
+                  onClick={() => handleItemClick("Summarize", "British")}
+                  className={`menu-title cursor-pointer ${
+                    selectedItem?.tone === "Summarize"
+                      ? "border-b-2 border-green-500"
+                      : ""
+                  }`}
+                >
+                  <span
+                    className={`text-lg ${
+                      selectedItem?.tone === "Summarize" ? "text-green-500" : ""
                     }`}
                   >
-                    <span
-                      className={`text-lg ${
-                        selectedItem?.tone === "Summarize"
-                          ? "text-green-500"
-                          : ""
-                      }`}
-                    >
-                      Summarize
-                    </span>
-                  </li>
+                    Summarize
+                  </span>
+                </li>
               </ul>
             </div>
+
             <div className="flex-none block sm:hidden ml-auto">
               <div className="flex flex-row justify-center items-center mt-2 mb-2">
                 <button
                   onClick={handleApiCall}
                   disabled={!selectedItem || loading}
-                  className="btn btn-primary"
-                >
+                  className="btn btn-primary">
                   {loading ? "Loading..." : "Paraphrase"}
                 </button>
               </div>
             </div>
           </div>
+
           <div className="flex flex-col w-full lg:flex-row">
+
             <div className="grid flex-grow h-96 card bg-base-300 rounded-box border-none">
               <textarea
                 value={sentence}
+                maxLength={2000}
                 onChange={handleSentenceChange}
                 data-theme="light"
                 placeholder="To Rewrite text,enter or paste your Text here."
                 className="textarea textarea-lg w-full h-full border-none focus:border-none"
               ></textarea>
             </div>
+
             <div className="divider m-0 p-1 lg:divider-horizontal lg:m-0 lg:p-1"></div>
+
             <div className="grid flex-grow h-96 card bg-base-300 rounded-box border-none">
               <textarea
                 value={apiResult}
@@ -325,7 +344,9 @@ export default function Home() {
                 className="textarea textarea-lg w-full h-full"
               ></textarea>
             </div>
+
           </div>
+
           <div className="flex-none hidden sm:block">
             <div className="flex flex-row justify-center items-center mt-2">
               <button
@@ -337,7 +358,9 @@ export default function Home() {
               </button>
             </div>
           </div>
+
         </div>
+
       </main>
     </>
   );
