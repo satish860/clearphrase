@@ -1,6 +1,9 @@
 import { ReactElement } from 'react';
 import { Box, SimpleGrid, Icon, Text, Stack, Flex } from '@chakra-ui/react';
 import { FcAssistant, FcDonate, FcInTransit } from 'react-icons/fc';
+import { ImChrome } from 'react-icons/im';
+import { CgWebsite } from 'react-icons/cg';
+import {  IoIosDesktop } from 'react-icons/io';
 
 interface FeatureProps {
   title: string;
@@ -33,24 +36,24 @@ export default function SimpleThreeColumns() {
     <Box p={4}>
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
         <Feature
-          icon={<Icon as={FcAssistant} w={10} h={10} />}
-          title={'Lifetime Support'}
+          icon={<Icon as={CgWebsite} w={10} h={10} />}
+          title={'Web Interface'}
           text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+            "Clearphrase's intuitive web interface makes it easy to adjust the tone of your writing from any device with an internet connection."
           }
         />
         <Feature
-          icon={<Icon as={FcDonate} w={10} h={10} />}
-          title={'Unlimited Donations'}
+          icon={<Icon as={ImChrome} w={10} h={10} />}
+          title={'Chrome Extension'}
           text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+            "With Clearphrase's Chrome extension, you can seamlessly edit your tone without ever leaving your browser."
           }
         />
         <Feature
-          icon={<Icon as={FcInTransit} w={10} h={10} />}
-          title={'Instant Delivery'}
+          icon={<Icon as={IoIosDesktop} w={10} h={10} />}
+          title={'Context menu on Desktop'}
           text={
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore...'
+           "Clearphrase's context menu integration on Windows lets you quickly adjust your tone within your favourite writing apps."
           }
         />
       </SimpleGrid>

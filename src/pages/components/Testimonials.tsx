@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 import {
   Box,
   Flex,
@@ -8,7 +8,7 @@ import {
   Container,
   Avatar,
   useColorModeValue,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 const Testimonial = ({ children }: { children: ReactNode }) => {
   return <Box>{children}</Box>;
@@ -17,28 +17,29 @@ const Testimonial = ({ children }: { children: ReactNode }) => {
 const TestimonialContent = ({ children }: { children: ReactNode }) => {
   return (
     <Stack
-      bg={useColorModeValue('white', 'gray.800')}
-      boxShadow={'lg'}
+      bg={useColorModeValue("white", "gray.800")}
+      boxShadow={"lg"}
       p={8}
-      rounded={'xl'}
-      align={'center'}
-      pos={'relative'}
+      rounded={"xl"}
+      align={"center"}
+      pos={"relative"}
       _after={{
         content: `""`,
         w: 0,
         h: 0,
-        borderLeft: 'solid transparent',
+        borderLeft: "solid transparent",
         borderLeftWidth: 16,
-        borderRight: 'solid transparent',
+        borderRight: "solid transparent",
         borderRightWidth: 16,
-        borderTop: 'solid',
+        borderTop: "solid",
         borderTopWidth: 16,
-        borderTopColor: useColorModeValue('white', 'gray.800'),
-        pos: 'absolute',
-        bottom: '-16px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-      }}>
+        borderTopColor: useColorModeValue("white", "gray.800"),
+        pos: "absolute",
+        bottom: "-16px",
+        left: "50%",
+        transform: "translateX(-50%)",
+      }}
+    >
       {children}
     </Stack>
   );
@@ -46,7 +47,7 @@ const TestimonialContent = ({ children }: { children: ReactNode }) => {
 
 const TestimonialHeading = ({ children }: { children: ReactNode }) => {
   return (
-    <Heading as={'h3'} fontSize={'xl'}>
+    <Heading as={"h3"} fontSize={"xl"}>
       {children}
     </Heading>
   );
@@ -55,9 +56,10 @@ const TestimonialHeading = ({ children }: { children: ReactNode }) => {
 const TestimonialText = ({ children }: { children: ReactNode }) => {
   return (
     <Text
-      textAlign={'center'}
-      color={useColorModeValue('gray.600', 'gray.400')}
-      fontSize={'sm'}>
+      textAlign={"center"}
+      color={useColorModeValue("gray.600", "gray.400")}
+      fontSize={"sm"}
+    >
       {children}
     </Text>
   );
@@ -73,11 +75,11 @@ const TestimonialAvatar = ({
   title: string;
 }) => {
   return (
-    <Flex align={'center'} mt={8} direction={'column'}>
+    <Flex align={"center"} mt={8} direction={"column"}>
       <Avatar src={src} mb={2} />
-      <Stack spacing={-1} align={'center'}>
+      <Stack spacing={-1} align={"center"}>
         <Text fontWeight={600}>{name}</Text>
-        <Text fontSize={'sm'} color={useColorModeValue('gray.600', 'gray.400')}>
+        <Text fontSize={"sm"} color={useColorModeValue("gray.600", "gray.400")}>
           {title}
         </Text>
       </Stack>
@@ -87,45 +89,46 @@ const TestimonialAvatar = ({
 
 export default function WithSpeechBubbles() {
   return (
-    <Box bg={useColorModeValue('gray.100', 'gray.700')}>
-      <Container maxW={'7xl'} py={16} as={Stack} spacing={12}>
-        <Stack spacing={0} align={'center'}>
-          <Heading>Our Clients Speak</Heading>
-          <Text>We have been working with clients around the world</Text>
+    <Box bg={useColorModeValue("gray.100", "gray.700")}>
+      <Container maxW={"7xl"} py={16} as={Stack} spacing={12}>
+        <Stack spacing={0} align={"center"}>
+          <Heading>Our Users Speak</Heading>
+          <Text>We have been working with users from various fields</Text>
         </Stack>
         <Stack
-          direction={{ base: 'column', md: 'row' }}
-          spacing={{ base: 10, md: 4, lg: 10 }}>
+          direction={{ base: "column", md: "row" }}
+          spacing={{ base: 10, md: 4, lg: 10 }}
+        >
           <Testimonial>
             <TestimonialContent>
-              <TestimonialHeading>Efficient Collaborating</TestimonialHeading>
+              <TestimonialHeading>Great Job!</TestimonialHeading>
               <TestimonialText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor
-                neque sed imperdiet nibh lectus feugiat nunc sem.
+                The mode option appears to be a cool feature that allows for
+                customized user preferences.
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
               src={
-                'https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80'
+                "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"
               }
-              name={'Jane Cooper'}
-              title={'CEO at ABC Corporation'}
+              name={"Azharudeen"}
+              title={"CEO at ABC Corporation"}
             />
           </Testimonial>
           <Testimonial>
             <TestimonialContent>
-              <TestimonialHeading>Intuitive Design</TestimonialHeading>
+              <TestimonialHeading>Intuitive Replacement</TestimonialHeading>
               <TestimonialText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor
-                neque sed imperdiet nibh lectus feugiat nunc sem.
+                This works so well, this paraphrases a not so good sentence, a
+                very good alternattive to grammarly. Works like bliss
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
               src={
-                'https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80'
+                "https://media.licdn.com/dms/image/C5603AQGaPCCoKwVckg/profile-displayphoto-shrink_400_400/0/1605114569814?e=1689206400&v=beta&t=6bG0oftNtQOFw2If1Nyw4rrsWp7cJVFRniyg3Xn3z1s"
               }
-              name={'Jane Cooper'}
-              title={'CEO at ABC Corporation'}
+              name={"Puneeth S Vishwanath"}
+              title={"Agile Coach at AirBus"}
             />
           </Testimonial>
           <Testimonial>
@@ -138,10 +141,10 @@ export default function WithSpeechBubbles() {
             </TestimonialContent>
             <TestimonialAvatar
               src={
-                'https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80'
+                "https://media.licdn.com/dms/image/C4E03AQEVyGEEJu2EUg/profile-displayphoto-shrink_400_400/0/1632155148530?e=1689206400&v=beta&t=yQYj0HpPdhaP40VHJK95KffAI4ZDeZ7iAtwKlKTAGcY"
               }
-              name={'Jane Cooper'}
-              title={'CEO at ABC Corporation'}
+              name={"Suganya Sridharan"}
+              title={"Assistant Consultant at TCS"}
             />
           </Testimonial>
         </Stack>

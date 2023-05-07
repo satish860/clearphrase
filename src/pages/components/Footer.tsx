@@ -7,8 +7,9 @@ import {
     useColorModeValue,
     VisuallyHidden,
   } from '@chakra-ui/react';
-  import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+  import { FaTwitter } from 'react-icons/fa';
   import { ReactNode } from 'react';
+  import { SiHashnode, SiLinkedin } from 'react-icons/si';
   
   const SocialButton = ({
     children,
@@ -54,16 +55,16 @@ import {
           spacing={4}
           justify={{ base: 'center', md: 'space-between' }}
           align={{ base: 'center', md: 'center' }}>
-          <Text>© 2022 Chakra Templates. All rights reserved</Text>
+          <Text>© 2023 Clearphrases.io . All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
-            <SocialButton label={'Twitter'} href={'#'}>
+            <SocialButton label={'Twitter'} href={'https://twitter.com/satish1v?s=20'}>
               <FaTwitter />
             </SocialButton>
-            <SocialButton label={'YouTube'} href={'#'}>
-              <FaYoutube />
+            <SocialButton label={'Hashnode'} href={'https://hashnode.com/@satish860'}>
+              <SiHashnode />
             </SocialButton>
-            <SocialButton label={'Instagram'} href={'#'}>
-              <FaInstagram />
+            <SocialButton label={'LinkedIn'} href={'https://www.linkedin.com/in/satish1v'}>
+              <SiLinkedin />
             </SocialButton>
           </Stack>
         </Container>
