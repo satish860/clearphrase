@@ -36,7 +36,7 @@ export default function CallToActionWithAnnotation() {
           >
             Try Clearphrase today <br />
             <Text as={"span"} color={"green.400"}>
-              Take control of your writing's tone!
+              Take control of your writing&apos;s tone!
             </Text>
           </Heading>
           <Text color={"gray.500"}>
