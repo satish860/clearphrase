@@ -1,4 +1,3 @@
-import { Center, Square, Circle } from "@chakra-ui/react";
 import CallToActionWithAnnotation from "./components/CallToActionWithAnnotation";
 import SimpleThreeColumns from "./components/Features";
 import WithSpeechBubbles from "./components/Testimonials";
