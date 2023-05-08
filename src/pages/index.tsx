@@ -11,11 +11,7 @@ export default function Landing() {
         className="flex flex-row justify-between z-50 h-14"
         data-theme="light"
       >
-        <Image
-          src="Clearphrase.png"
-          alt="Logo"
-          maxW="500px" maxH="500px" 
-        />
+        
 
         <div className="flex items-center">
           <h1 className="text-xl font-bold p-4">
