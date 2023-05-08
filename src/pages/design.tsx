@@ -1,8 +1,29 @@
-import { ReactNode } from "react";
-import { Box, Flex, Textarea, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Box, Flex, Textarea, Text, Show } from "@chakra-ui/react";
 import { Center, Stack } from "@chakra-ui/react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import {
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  TabIndicator,
+} from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Select } from "@chakra-ui/react";
+import {
+  Menu,
+} from "@chakra-ui/react";
+
+type SelectedItem = {
+  tone: string;
+  dialect: string;
+};
+
+type ApiResponse = {
+  result: string;
+};
 
 export default function design() {
   const textAreaStyle = {
@@ -19,6 +40,53 @@ export default function design() {
     },
   };
 
+  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>({
+    tone: "Standard",
+    dialect: "British",
+  });
+
+  const [sentence, setSentence] = useState("");
+  const [apiResult, setApiResult] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const callApi = (item: SelectedItem) => {
+    if (!sentence) return;
+    setLoading(true);
+    fetch("/api/Parapharser", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tone: item.tone, sentence }),
+    })
+      .then((response) => response.json())
+      .then((data: ApiResponse) => setApiResult(data.result))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  };
+
+  const clearAll = () => {
+    setSentence("");
+    setApiResult("");
+  };
+
+  const handleItemClick = (tone: string, dialect: string) => {
+    console.log(tone, dialect);
+    setSelectedItem({ tone, dialect });
+    callApi({ tone, dialect });
+  };
+
+  const handleApiCall = () => {
+    if (!selectedItem) {
+      return;
+    }
+    callApi(selectedItem);
+  };
+
+  const handleSentenceChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setSentence(event.target.value);
+  };
+
   return (
     <>
       <Center bg="gray.100" h="100vh">
@@ -32,24 +100,64 @@ export default function design() {
           bg="white"
           justifyContent="center"
         >
-          <Tabs
-            variant="soft-rounded"
-            h="80vh"
-            w="80vw"
-            p="5"
-            colorScheme="green"
-          >
-            <TabList>
-              <Box px="2" py="2">
-                <Text fontWeight="bold">Tones: </Text>
-              </Box>
-              <Tab>Standard</Tab>
-              <Tab>Fluency</Tab>
-              <Tab>Formal</Tab>
-              <Tab>Simple</Tab>
-              <Tab>Creative</Tab>
-              <Tab>Summarize</Tab>
-            </TabList>
+          <Tabs variant="unstyled" h="80vh" w="80vw" p="5" colorScheme="green">
+            <Show above="sm">
+              <TabList>
+                <Box px="2" py="2">
+                  <Text fontWeight="bold">Tones: </Text>
+                </Box>
+                <Tab onClick={() => handleItemClick("Standard", "British")}>
+                  Standard
+                </Tab>
+                <Tab onClick={() => handleItemClick("Fluency", "British")}>
+                  Fluency
+                </Tab>
+                <Tab onClick={() => handleItemClick("Formal", "British")}>
+                  Formal
+                </Tab>
+                <Tab onClick={() => handleItemClick("Simple", "British")}>
+                  Simple
+                </Tab>
+                <Tab onClick={() => handleItemClick("Creative", "British")}>
+                  Creative
+                </Tab>
+                <Tab onClick={() => handleItemClick("Summarize", "British")}>
+                  Summarize
+                </Tab>
+              </TabList>
+            </Show>
+            <Show below="sm">
+              <Menu>
+                <Select placeholder="Tones">
+                  <option
+                    onClick={() => handleItemClick("Standard", "British")}
+                  >
+                    Standard
+                  </option>
+                  <option onClick={() => handleItemClick("Fluency", "British")}>
+                    Fluency
+                  </option>
+                  <option onClick={() => handleItemClick("Formal", "British")}>
+                    Formal
+                  </option>
+                  <option onClick={() => handleItemClick("Simple", "British")}>
+                    Simple
+                  </option>
+                  <option onClick={() => handleItemClick("Creative", "British")}>
+                    Creative
+                  </option>
+                  <option onClick={() => handleItemClick("Summarize", "British")}>
+                    Summarize
+                  </option>
+                </Select>
+              </Menu>
+            </Show>
+            <TabIndicator
+              mt="-1.5px"
+              height="2px"
+              bg="green.500"
+              borderRadius="1px"
+            />
             <TabPanels>
               <TabPanel>
                 <Flex
@@ -57,8 +165,19 @@ export default function design() {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Textarea placeholder="Textbox 1" sx={textAreaStyle} />
-                  <Textarea placeholder="Textbox 2" sx={textAreaStyle} />
+                  <Textarea
+                    placeholder="To Rewrite text,enter or paste your Text here."
+                    sx={textAreaStyle}
+                    value={sentence}
+                    maxLength={2000}
+                    onChange={handleSentenceChange}
+                  />
+                  <Textarea
+                    sx={textAreaStyle}
+                    value={apiResult}
+                    disabled={loading}
+                    readOnly={true}
+                  />
                 </Flex>
               </TabPanel>
               <TabPanel>
@@ -67,8 +186,19 @@ export default function design() {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Textarea placeholder="Textbox 1" sx={textAreaStyle} />
-                  <Textarea placeholder="Textbox 2" sx={textAreaStyle} />
+                  <Textarea
+                    placeholder="To Rewrite text,enter or paste your Text here."
+                    sx={textAreaStyle}
+                    value={sentence}
+                    maxLength={2000}
+                    onChange={handleSentenceChange}
+                  />
+                  <Textarea
+                    sx={textAreaStyle}
+                    value={apiResult}
+                    disabled={loading}
+                    readOnly={true}
+                  />
                 </Flex>
               </TabPanel>
               <TabPanel>
@@ -77,8 +207,19 @@ export default function design() {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Textarea placeholder="Textbox 1" sx={textAreaStyle} />
-                  <Textarea placeholder="Textbox 2" sx={textAreaStyle} />
+                  <Textarea
+                    placeholder="To Rewrite text,enter or paste your Text here."
+                    sx={textAreaStyle}
+                    value={sentence}
+                    maxLength={2000}
+                    onChange={handleSentenceChange}
+                  />
+                  <Textarea
+                    sx={textAreaStyle}
+                    value={apiResult}
+                    disabled={loading}
+                    readOnly={true}
+                  />
                 </Flex>
               </TabPanel>
               <TabPanel>
@@ -87,8 +228,19 @@ export default function design() {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Textarea placeholder="Textbox 1" sx={textAreaStyle} />
-                  <Textarea placeholder="Textbox 2" sx={textAreaStyle} />
+                  <Textarea
+                    placeholder="To Rewrite text,enter or paste your Text here."
+                    sx={textAreaStyle}
+                    value={sentence}
+                    maxLength={2000}
+                    onChange={handleSentenceChange}
+                  />
+                  <Textarea
+                    sx={textAreaStyle}
+                    value={apiResult}
+                    disabled={loading}
+                    readOnly={true}
+                  />
                 </Flex>
               </TabPanel>
               <TabPanel>
@@ -97,8 +249,19 @@ export default function design() {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Textarea placeholder="Textbox 1" sx={textAreaStyle} />
-                  <Textarea placeholder="Textbox 2" sx={textAreaStyle} />
+                  <Textarea
+                    placeholder="To Rewrite text,enter or paste your Text here."
+                    sx={textAreaStyle}
+                    value={sentence}
+                    maxLength={2000}
+                    onChange={handleSentenceChange}
+                  />
+                  <Textarea
+                    sx={textAreaStyle}
+                    value={apiResult}
+                    disabled={loading}
+                    readOnly={true}
+                  />
                 </Flex>
               </TabPanel>
               <TabPanel>
@@ -107,8 +270,19 @@ export default function design() {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Textarea placeholder="Textbox 1" sx={textAreaStyle} />
-                  <Textarea placeholder="Textbox 2" sx={textAreaStyle} />
+                  <Textarea
+                    placeholder="To Rewrite text,enter or paste your Text here."
+                    sx={textAreaStyle}
+                    value={sentence}
+                    maxLength={2000}
+                    onChange={handleSentenceChange}
+                  />
+                  <Textarea
+                    sx={textAreaStyle}
+                    value={apiResult}
+                    disabled={loading}
+                    readOnly={true}
+                  />
                 </Flex>
               </TabPanel>
             </TabPanels>
@@ -122,10 +296,11 @@ export default function design() {
                 colorScheme="green"
                 variant="solid"
                 loadingText="Paraphrasing..."
+                onClick={handleApiCall}
               >
                 Paraphrase
               </Button>
-              <Button colorScheme="green" variant="outline">
+              <Button colorScheme="green" variant="outline" onClick={clearAll}>
                 Clear All
               </Button>
             </Stack>
