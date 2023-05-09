@@ -24,7 +24,7 @@ export default function Header() {
         </Text>
         <Stack direction="row" ml="auto" alignItems="center">
           <SignedIn>
-            <UserButton />
+            <UserButton afterSignOutUrl="/"/>
           </SignedIn>
           <SignedOut>
             <Link href="/sign-in">
