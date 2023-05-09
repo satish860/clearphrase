@@ -131,10 +131,9 @@ export default function WithSpeechBubbles() {
           </Testimonial>
           <Testimonial>
             <TestimonialContent>
-              <TestimonialHeading>Mindblowing Service</TestimonialHeading>
+              <TestimonialHeading>Confident Communication</TestimonialHeading>
               <TestimonialText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor
-                neque sed imperdiet nibh lectus feugiat nunc sem.
+              ClearPhrase makes it easier for anyone to communicate effectively and efficiently, regardless of their writing experience or proficiency.
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
