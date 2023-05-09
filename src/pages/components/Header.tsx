@@ -7,7 +7,7 @@ export default function Header() {
       <Flex
         bg="white"
         w="100%"
-        p={4}
+        p={2}
         verticalAlign="center"
         as="header"
         position="fixed"
