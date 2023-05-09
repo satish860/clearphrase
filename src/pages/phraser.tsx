@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/react";
+import Header from "./components/Header";
 
 type SelectedItem = {
   tone: string;
@@ -86,6 +87,7 @@ export default function Phraser() {
 
   return (
     <>
+      <Header />
       <Center bg="gray.100" h="100vh">
         <Box
           borderWidth="2px"
@@ -124,29 +126,26 @@ export default function Phraser() {
               </TabList>
             </Show>
             <Show below="sm">
-                <Select defaultValue="Standard" placeholder="Tones">
-                  <option
-                    onClick={() => handleItemClick("Standard", "British")}>
-                    Standard
-                  </option>
-                  <option onClick={() => handleItemClick("Fluency", "British")}>
-                    Fluency
-                  </option>
-                  <option onClick={() => handleItemClick("Formal", "British")}>
-                    Formal
-                  </option>
-                  <option onClick={() => handleItemClick("Simple", "British")}>
-                    Simple
-                  </option>
-                  <option
-                    onClick={() => handleItemClick("Creative", "British")}>
-                    Creative
-                  </option>
-                  <option
-                    onClick={() => handleItemClick("Summarize", "British")}>
-                    Summarize
-                  </option>
-                </Select>
+              <Select defaultValue="Standard" placeholder="Tones">
+                <option onClick={() => handleItemClick("Standard", "British")}>
+                  Standard
+                </option>
+                <option onClick={() => handleItemClick("Fluency", "British")}>
+                  Fluency
+                </option>
+                <option onClick={() => handleItemClick("Formal", "British")}>
+                  Formal
+                </option>
+                <option onClick={() => handleItemClick("Simple", "British")}>
+                  Simple
+                </option>
+                <option onClick={() => handleItemClick("Creative", "British")}>
+                  Creative
+                </option>
+                <option onClick={() => handleItemClick("Summarize", "British")}>
+                  Summarize
+                </option>
+              </Select>
             </Show>
             <TabIndicator
               mt="-1.5px"
