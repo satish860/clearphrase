@@ -51,7 +51,7 @@ export default function CallToActionWithAnnotation() {
             alignSelf={"center"}
             position={"relative"}
           >
-            <Link href="/home">
+            <Link href="/phraser">
               <Button
                 colorScheme={"green"}
                 bg={"green.400"}

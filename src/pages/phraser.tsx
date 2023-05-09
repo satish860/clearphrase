@@ -12,9 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/react";
-import {
-  Menu,
-} from "@chakra-ui/react";
 
 type SelectedItem = {
   tone: string;
@@ -127,11 +124,9 @@ export default function design() {
               </TabList>
             </Show>
             <Show below="sm">
-              <Menu>
-                <Select placeholder="Tones">
+                <Select defaultValue="Standard" placeholder="Tones">
                   <option
-                    onClick={() => handleItemClick("Standard", "British")}
-                  >
+                    onClick={() => handleItemClick("Standard", "British")}>
                     Standard
                   </option>
                   <option onClick={() => handleItemClick("Fluency", "British")}>
@@ -143,14 +138,15 @@ export default function design() {
                   <option onClick={() => handleItemClick("Simple", "British")}>
                     Simple
                   </option>
-                  <option onClick={() => handleItemClick("Creative", "British")}>
+                  <option
+                    onClick={() => handleItemClick("Creative", "British")}>
                     Creative
                   </option>
-                  <option onClick={() => handleItemClick("Summarize", "British")}>
+                  <option
+                    onClick={() => handleItemClick("Summarize", "British")}>
                     Summarize
                   </option>
                 </Select>
-              </Menu>
             </Show>
             <TabIndicator
               mt="-1.5px"

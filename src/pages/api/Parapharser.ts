@@ -146,6 +146,7 @@ export default async function handler(
   if (req.method === 'POST') {
     const { tone, sentence } = req.body
     const Envir = process.env.OPENAI_API_KEY
+    console.log(Envir)
     const model = new OpenAI({ openAIApiKey: Envir, temperature: 0.9 })
     if(tone === 'Fluency'){
       var promptTemplate = FluencyTemplate
