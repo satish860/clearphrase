@@ -22,7 +22,7 @@ type ApiResponse = {
   result: string;
 };
 
-export default function design() {
+export default function Phraser() {
   const textAreaStyle = {
     height: "60vh",
     width: { base: "80vw", md: "40vw" },
