@@ -37,7 +37,7 @@ export default function App({ Component, pageProps }: AppProps) {
               </ChakraProvider>
             </SignedIn>
             <SignedOut>
-              <RedirectToSignIn />
+              <RedirectToSignIn afterSignInUrl="/phraser" redirectUrl= "/"/>
             </SignedOut>
           </>
         )}
