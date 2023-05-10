@@ -127,8 +127,8 @@ export default function Phraser() {
                 <Tab onClick={() => handleItemClick("Summarize", "British")}>
                   Summarize
                 </Tab>
-                <Box ml="auto" justifyContent="center" px="2" py="2">
-                  <Button leftIcon={<CopyIcon />} onClick={handleCopy}></Button>
+                <Box ml="auto">
+                  <Button leftIcon={<CopyIcon/>} onClick={handleCopy} pr="-2" pl="2"></Button>
                 </Box>
               </TabList>
             </Show>
