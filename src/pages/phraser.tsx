@@ -13,6 +13,7 @@ import {
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/react";
 import Header from "./components/Header";
+import SmallWithSocial from "./components/Footer";
 
 type SelectedItem = {
   tone: string;
@@ -302,6 +303,7 @@ export default function Phraser() {
           </Tabs>
         </Box>
       </Center>
+      <SmallWithSocial />
     </>
   );
 }

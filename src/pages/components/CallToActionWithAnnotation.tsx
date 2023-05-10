@@ -11,6 +11,7 @@ import {
   createIcon,
   Link,
 } from "@chakra-ui/react";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 export default function CallToActionWithAnnotation() {
   return (
@@ -51,6 +52,22 @@ export default function CallToActionWithAnnotation() {
             alignSelf={"center"}
             position={"relative"}
           >
+            <SignedIn>
+            <Link href="/phraser">
+              <Button
+                colorScheme={"green"}
+                bg={"green.400"}
+                rounded={"full"}
+                px={6}
+                _hover={{
+                  bg: "green.500",
+                }}
+              >
+                Get Started
+              </Button>
+            </Link>
+            </SignedIn>
+            <SignedOut>
             <Link href="/sign-up">
               <Button
                 colorScheme={"green"}
@@ -64,6 +81,7 @@ export default function CallToActionWithAnnotation() {
                 Get Started
               </Button>
             </Link>
+            </SignedOut>
             <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
               Learn more
             </Button>

@@ -23,7 +23,7 @@ export default function Header() {
           .io
         </Text>
         <Stack direction="row" ml="auto" alignItems="center">
-          <SignedIn>
+          <SignedIn>       
             <UserButton afterSignOutUrl="/"/>
           </SignedIn>
           <SignedOut>
