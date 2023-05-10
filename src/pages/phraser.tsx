@@ -17,11 +17,17 @@ import { CopyIcon } from "@chakra-ui/icons";
 type SelectedItem = {
   tone: string;
   dialect: string;
+  sentence: string;
 };
 
 type ApiResponse = {
   result: string;
 };
+
+interface Tones {
+  id: number;
+  tone: string;
+}
 
 export default function Phraser() {
   const textAreaStyle = {
@@ -38,22 +44,29 @@ export default function Phraser() {
     },
   };
 
-  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>({
-    tone: "Standard",
-    dialect: "British",
-  });
+  const myArray: Tones[] = [
+    { id: 0, tone: "Standard" },
+    { id: 1, tone: "Fluency" },
+    { id: 2, tone: "Formal" },
+    { id: 3, tone: "Simple" },
+    { id: 4, tone: "Creative" },
+    { id: 5, tone: "Summarize" },
+  ];
 
   const [sentence, setSentence] = useState("");
   const [apiResult, setApiResult] = useState("");
   const [loading, setLoading] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const callApi = (item: SelectedItem) => {
-    if (!sentence) return;
+    console.log(item);
+    console.log(sentence);
+    if (!item.sentence) return;
     setLoading(true);
     fetch("/api/Parapharser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tone: item.tone, sentence }),
+      body: JSON.stringify({ tone: item.tone, sentence: item.sentence }),
     })
       .then((response) => response.json())
       .then((data: ApiResponse) => setApiResult(data.result))
@@ -70,23 +83,43 @@ export default function Phraser() {
     setApiResult("");
   };
 
+  const handlePaste = (
+    event: React.ClipboardEvent<HTMLTextAreaElement>
+  ): void => {
+    event.preventDefault();
+    const pastedText = event.clipboardData.getData("text");
+    setSentence(pastedText);
+    console.log(pastedText);
+    callApi({
+      tone: myArray[tabIndex].tone,
+      dialect: "British",
+      sentence: pastedText,
+    });
+    console.log("This is the paste event");
+  };
+
   const handleItemClick = (tone: string, dialect: string) => {
-    console.log(tone, dialect);
-    setSelectedItem({ tone, dialect });
-    callApi({ tone, dialect });
+    callApi({ tone, dialect, sentence });
   };
 
   const handleApiCall = () => {
-    if (!selectedItem) {
+    if (!sentence) {
       return;
     }
-    callApi(selectedItem);
+    callApi({ tone: myArray[tabIndex].tone, dialect: "British", sentence });
   };
 
   const handleSentenceChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
+    console.log("This is the sentence change event");
     setSentence(event.target.value);
+
+    console.log(sentence);
+  };
+
+  const handleTabChange = (index: number) => {
+    setTabIndex(index);
   };
 
   return (
@@ -103,7 +136,14 @@ export default function Phraser() {
           bg="white"
           justifyContent="center"
         >
-          <Tabs h="80vh" w="80vw" p="5" colorScheme="green">
+          <Tabs
+            h="80vh"
+            w="80vw"
+            p="5"
+            colorScheme="green"
+            index={tabIndex}
+            onChange={handleTabChange}
+          >
             <Show above="sm">
               <TabList>
                 <Box px="2" py="2">
@@ -128,7 +168,12 @@ export default function Phraser() {
                   Summarize
                 </Tab>
                 <Box ml="auto">
-                  <Button leftIcon={<CopyIcon/>} onClick={handleCopy} pr="-2" pl="2"></Button>
+                  <Button
+                    leftIcon={<CopyIcon />}
+                    onClick={handleCopy}
+                    pr="-2"
+                    pl="2"
+                  ></Button>
                 </Box>
               </TabList>
             </Show>
@@ -173,6 +218,7 @@ export default function Phraser() {
                     value={sentence}
                     maxLength={2000}
                     onChange={handleSentenceChange}
+                    onPaste={handlePaste}
                   />
                   <Textarea
                     sx={textAreaStyle}
@@ -194,6 +240,7 @@ export default function Phraser() {
                     value={sentence}
                     maxLength={2000}
                     onChange={handleSentenceChange}
+                    onPaste={handlePaste}
                   />
                   <Textarea
                     sx={textAreaStyle}
@@ -215,6 +262,7 @@ export default function Phraser() {
                     value={sentence}
                     maxLength={2000}
                     onChange={handleSentenceChange}
+                    onPaste={handlePaste}
                   />
                   <Textarea
                     sx={textAreaStyle}
@@ -236,6 +284,7 @@ export default function Phraser() {
                     value={sentence}
                     maxLength={2000}
                     onChange={handleSentenceChange}
+                    onPaste={handlePaste}
                   />
                   <Textarea
                     sx={textAreaStyle}
@@ -257,6 +306,7 @@ export default function Phraser() {
                     value={sentence}
                     maxLength={2000}
                     onChange={handleSentenceChange}
+                    onPaste={handlePaste}
                   />
                   <Textarea
                     sx={textAreaStyle}
@@ -278,6 +328,7 @@ export default function Phraser() {
                     value={sentence}
                     maxLength={2000}
                     onChange={handleSentenceChange}
+                    onPaste={handlePaste}
                   />
                   <Textarea
                     sx={textAreaStyle}
