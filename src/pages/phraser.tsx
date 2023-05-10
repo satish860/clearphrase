@@ -303,7 +303,6 @@ export default function Phraser() {
           </Tabs>
         </Box>
       </Center>
-      <SmallWithSocial />
     </>
   );
 }
