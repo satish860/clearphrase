@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Box, Flex, Textarea, Text, Show } from "@chakra-ui/react";
 import { Center, Stack } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Tabs,
   TabList,
@@ -10,10 +9,10 @@ import {
   TabPanel,
   TabIndicator,
 } from "@chakra-ui/react";
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/react";
 import Header from "./components/Header";
-import SmallWithSocial from "./components/Footer";
+import { CopyIcon } from "@chakra-ui/icons";
 
 type SelectedItem = {
   tone: string;
@@ -62,6 +61,10 @@ export default function Phraser() {
       .finally(() => setLoading(false));
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(apiResult);
+  };
+
   const clearAll = () => {
     setSentence("");
     setApiResult("");
@@ -100,7 +103,7 @@ export default function Phraser() {
           bg="white"
           justifyContent="center"
         >
-          <Tabs  h="80vh" w="80vw" p="5" colorScheme="green">
+          <Tabs h="80vh" w="80vw" p="5" colorScheme="green">
             <Show above="sm">
               <TabList>
                 <Box px="2" py="2">
@@ -124,6 +127,9 @@ export default function Phraser() {
                 <Tab onClick={() => handleItemClick("Summarize", "British")}>
                   Summarize
                 </Tab>
+                <Box ml="auto" justifyContent="center" px="2" py="2">
+                  <Button leftIcon={<CopyIcon />} onClick={handleCopy}></Button>
+                </Box>
               </TabList>
             </Show>
             <Show below="sm">
