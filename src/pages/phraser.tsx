@@ -100,7 +100,7 @@ export default function Phraser() {
           bg="white"
           justifyContent="center"
         >
-          <Tabs variant="unstyled" h="80vh" w="80vw" p="5" colorScheme="green">
+          <Tabs  h="80vh" w="80vw" p="5" colorScheme="green">
             <Show above="sm">
               <TabList>
                 <Box px="2" py="2">
