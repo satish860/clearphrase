@@ -108,9 +108,9 @@ export default function WithSpeechBubbles() {
               </TestimonialText>
             </TestimonialContent>
             <TestimonialAvatar
-              src={""}
+              src={"/images/stock/Testimonial.jpg"}
               name={"Azharudeen"}
-              title={""}
+              title={"Director at Digital Solutions"}
             />
           </Testimonial>
           <Testimonial>
