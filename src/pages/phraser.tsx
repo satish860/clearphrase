@@ -58,20 +58,28 @@ export default function Phraser() {
   const [loading, setLoading] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
 
-  const callApi = (item: SelectedItem) => {
-    console.log(item);
-    console.log(sentence);
+  const callApi = async (item: SelectedItem) => {
     if (!item.sentence) return;
     setLoading(true);
-    fetch("/api/Parapharser", {
+    const res = await fetch("/api/Parapharser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ tone: item.tone, sentence: item.sentence }),
-    })
-      .then((response) => response.json())
-      .then((data: ApiResponse) => setApiResult(data.result))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
+    });
+    const reader = res.body?.getReader()!;
+
+    while (true) {
+      console.log("In the while loop");
+      const { done, value } = await reader.read();
+      console.log(done);
+      if (done) {
+        console.log("Done");
+        break;
+      }
+      const decodedValue = new TextDecoder().decode(value);
+      setApiResult(decodedValue);
+      setLoading(false);
+    }
   };
 
   const handleCopy = () => {

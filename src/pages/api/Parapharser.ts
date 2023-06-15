@@ -1,7 +1,8 @@
 // Write a Simple Next.js API Route
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { OpenAI } from 'langchain/llms/openai'
-import { PromptTemplate } from 'langchain/prompts'
+import { NextResponse, NextRequest } from "next/server";
+import { OpenAI } from "langchain/llms/openai";
+import { PromptTemplate } from "langchain/prompts";
+import { CallbackManager } from "langchain/callbacks";
 
 const standardTemplate = `
 Below is an sentence that may be poorly worded.
@@ -23,7 +24,7 @@ TONE: {tone}
 sentence: {sentence}
 
 YOUR {tone} RESPONSE:
-`
+`;
 
 const FluencyTemplate = `
 Below is an sentence that may be poorly worded.
@@ -46,7 +47,7 @@ TONE: {tone}
 sentence: {sentence}
 
 YOUR {tone} RESPONSE:
-`
+`;
 
 const FormalTemplate = `
 Below is an sentence that may be poorly worded.
@@ -69,7 +70,7 @@ TONE: {tone}
 sentence: {sentence}
 
 YOUR {tone} RESPONSE:
-`
+`;
 
 const SimpleTemplate = `
 Below is an sentence that may be poorly worded.
@@ -92,7 +93,7 @@ TONE: {tone}
 sentence: {sentence}
 
 YOUR {tone} RESPONSE:
-`
+`;
 
 const CreativeTemplate = `
 Below is an sentence that may be poorly worded.
@@ -115,7 +116,7 @@ TONE: {tone}
 sentence: {sentence}
 
 YOUR {tone} RESPONSE:
-`
+`;
 const SummarizeTemplate = `
 Below is an sentence that may be poorly worded.
 Your goal is to: 
@@ -129,50 +130,69 @@ Here are some examples of this Tone:
 - In recent years, there has been a growing concern over climate change and its impact on the environment. The use of fossil fuels has been identified as a major contributor to the problem, and many countries have implemented policies to reduce their use. Renewable energy sources such as wind and solar power are becoming increasingly popular, as they offer a cleaner and more sustainable alternative to traditional energy sources.
 - Artificial intelligence is changing the way we live and work. With its ability to process large amounts of data and identify patterns, AI is being used in a wide range of applications, from voice recognition software to self-driving cars. While there are concerns over the potential impact of AI on jobs and privacy, many experts believe that it has the potential to revolutionize numerous industries and improve our lives in countless ways.
 
-
 Below is the sentence, tone:
 TONE: {tone}
 sentence: {sentence}
 
 YOUR {tone} RESPONSE:
-`
+`;
 
-
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  if (req.method === 'POST') {
-    const { tone, sentence } = req.body
+export default async function handler(req: NextRequest) {
+  if (req.method === "POST") {
+    const rem = await req.json();
+    const tone = rem.tone;
+    const sentence = rem.sentence;
     const Envir = process.env.OPENAI_API_KEY;
-    const model = new OpenAI({ openAIApiKey: Envir, temperature: 0.9 })
-    if(tone === 'Fluency'){
-      var promptTemplate = FluencyTemplate
-    } else if(tone === 'Formal'){
-      var promptTemplate = FormalTemplate
-    }
-    else if(tone === 'Simple'){
-      var promptTemplate = SimpleTemplate
-    }
-    else if(tone === 'Creative'){
-      var promptTemplate = CreativeTemplate
-    }
-    else if(tone === 'Summarize'){
-      var promptTemplate = SummarizeTemplate
-    }
-    else{ 
-      var promptTemplate = standardTemplate
+
+    // const model = new OpenAI({ openAIApiKey: Envir, temperature: 0.9 })
+    const encoder = new TextEncoder();
+    const stream = new TransformStream();
+    const writer = stream.writable.getWriter();
+
+    if (tone === "Fluency") {
+      var promptTemplate = FluencyTemplate;
+    } else if (tone === "Formal") {
+      var promptTemplate = FormalTemplate;
+    } else if (tone === "Simple") {
+      var promptTemplate = SimpleTemplate;
+    } else if (tone === "Creative") {
+      var promptTemplate = CreativeTemplate;
+    } else if (tone === "Summarize") {
+      var promptTemplate = SummarizeTemplate;
+    } else {
+      var promptTemplate = standardTemplate;
     }
     const prompt = new PromptTemplate({
       template: promptTemplate,
-      inputVariables: ['tone', 'sentence'],
-    })
+      inputVariables: ["tone", "sentence"],
+    });
 
-    const promptText = await prompt.format({ tone, sentence: sentence })
-    const modelresponse = await model.call(promptText)
-    res.status(200).json({ result: modelresponse })
-  } else {
-    res.status(405).json({ message: 'Only POST requests are allowed' })
+    const model = new OpenAI({
+      openAIApiKey: Envir,
+      temperature: 0.9,
+      streaming: true,
+      callbackManager: CallbackManager.fromHandlers({
+        handleLLMNewToken: async (token) => {
+          console.log(token);
+          await writer.ready;
+          await writer.write(encoder.encode(`${token}`));
+        },
+      }),
+    });
+
+    const promptText = await prompt.format({ tone, sentence: sentence });
+
+    await model.call(promptText);
+
+    return new NextResponse(await stream.readable, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+      },
+    });
   }
 }
+
+export const config = {
+  runtime: "edge",
+};
