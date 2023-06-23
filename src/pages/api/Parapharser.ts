@@ -1,8 +1,7 @@
 // Write a Simple Next.js API Route
-import { NextResponse, NextRequest } from "next/server";
-import { OpenAI } from "langchain/llms/openai";
 import { PromptTemplate } from "langchain/prompts";
-import { CallbackManager } from "langchain/callbacks";
+import { Configuration, OpenAIApi } from "openai-edge";
+import { OpenAIStream, StreamingTextResponse } from "ai";
 
 const standardTemplate = `
 Below is an sentence that may be poorly worded.
@@ -137,62 +136,54 @@ sentence: {sentence}
 YOUR {tone} RESPONSE:
 `;
 
-export default async function handler(req: NextRequest) {
-  if (req.method === "POST") {
-    const rem = await req.json();
-    const tone = rem.tone;
-    const sentence = rem.sentence;
-    const Envir = process.env.OPENAI_API_KEY;
+const config = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-    // const model = new OpenAI({ openAIApiKey: Envir, temperature: 0.9 })
-    const encoder = new TextEncoder();
-    const stream = new TransformStream();
-    const writer = stream.writable.getWriter();
+const openai = new OpenAIApi(config);
 
-    if (tone === "Fluency") {
-      var promptTemplate = FluencyTemplate;
-    } else if (tone === "Formal") {
-      var promptTemplate = FormalTemplate;
-    } else if (tone === "Simple") {
-      var promptTemplate = SimpleTemplate;
-    } else if (tone === "Creative") {
-      var promptTemplate = CreativeTemplate;
-    } else if (tone === "Summarize") {
-      var promptTemplate = SummarizeTemplate;
-    } else {
-      var promptTemplate = standardTemplate;
-    }
-    const prompt = new PromptTemplate({
-      template: promptTemplate,
-      inputVariables: ["tone", "sentence"],
-    });
+export const runtime = "edge";
 
-    const model = new OpenAI({
-      openAIApiKey: Envir,
-      temperature: 0.9,
-      streaming: true,
-      callbackManager: CallbackManager.fromHandlers({
-        handleLLMNewToken: async (token) => {
-          console.log(token);
-          await writer.ready;
-          await writer.write(encoder.encode(`${token}`));
-        },
-      }),
-    });
+export default async function POST(req: Request) {
+  const rem = await req.json();
+  const par = rem.prompt;
 
-    const promptText = await prompt.format({ tone, sentence: sentence });
+  const jsonString: string = par;
+  const jsonObject: { [key: string]: any } = JSON.parse(jsonString);
+  const tone: string = jsonObject.tone;
+  const sentence: string = jsonObject.sentence;
 
-    await model.call(promptText);
-
-    return new NextResponse(await stream.readable, {
-      headers: {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-      },
-    });
+  if (tone === "Fluency") {
+    var promptTemplate = FluencyTemplate;
+  } else if (tone === "Formal") {
+    var promptTemplate = FormalTemplate;
+  } else if (tone === "Simple") {
+    var promptTemplate = SimpleTemplate;
+  } else if (tone === "Creative") {
+    var promptTemplate = CreativeTemplate;
+  } else if (tone === "Summarize") {
+    var promptTemplate = SummarizeTemplate;
+  } else {
+    var promptTemplate = standardTemplate;
   }
-}
+  const prompt = new PromptTemplate({
+    template: promptTemplate,
+    inputVariables: ["tone", "sentence"],
+  });
 
-export const config = {
-  runtime: "edge",
-};
+  const promptText = await prompt.format({ tone, sentence: sentence });
+
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    stream: true,
+    temperature: 0.9,
+    prompt: promptText,
+    max_tokens: 1000,
+  });
+
+  const stream = OpenAIStream(response);
+
+  return new StreamingTextResponse(stream, {
+    headers: { "Content-Type": "text/html; charset=utf-8" },
+  });
+}

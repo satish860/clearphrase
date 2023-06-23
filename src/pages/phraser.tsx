@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Box, Flex, Textarea, Text, Show } from "@chakra-ui/react";
 import { Center, Stack } from "@chakra-ui/react";
@@ -13,6 +15,7 @@ import { Button } from "@chakra-ui/react";
 import { Select } from "@chakra-ui/react";
 import Header from "./components/Header";
 import { CopyIcon } from "@chakra-ui/icons";
+import { useCompletion } from "ai/react";
 
 type SelectedItem = {
   tone: string;
@@ -58,28 +61,15 @@ export default function Phraser() {
   const [loading, setLoading] = useState(false);
   const [tabIndex, setTabIndex] = useState(0);
 
+  const { complete, completion, setCompletion, isLoading } = useCompletion({
+    api: "/api/Parapharser",
+  });
+
   const callApi = async (item: SelectedItem) => {
     if (!item.sentence) return;
     setLoading(true);
-    const res = await fetch("/api/Parapharser", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tone: item.tone, sentence: item.sentence }),
-    });
-    const reader = res.body?.getReader()!;
-
-    while (true) {
-      console.log("In the while loop");
-      const { done, value } = await reader.read();
-      console.log(done);
-      if (done) {
-        console.log("Done");
-        break;
-      }
-      const decodedValue = new TextDecoder().decode(value);
-      setApiResult(decodedValue);
-      setLoading(false);
-    }
+    complete(JSON.stringify({ tone: item.tone, sentence: item.sentence }));
+    setLoading(false);
   };
 
   const handleCopy = () => {
@@ -88,7 +78,7 @@ export default function Phraser() {
 
   const clearAll = () => {
     setSentence("");
-    setApiResult("");
+    setCompletion("");
   };
 
   const handlePaste = (
@@ -97,7 +87,6 @@ export default function Phraser() {
     event.preventDefault();
     const pastedText = event.clipboardData.getData("text");
     setSentence(pastedText);
-    console.log(pastedText);
     callApi({
       tone: myArray[tabIndex].tone,
       dialect: "British",
@@ -122,7 +111,6 @@ export default function Phraser() {
   ) => {
     console.log("This is the sentence change event");
     setSentence(event.target.value);
-
     console.log(sentence);
   };
 
@@ -230,7 +218,7 @@ export default function Phraser() {
                   />
                   <Textarea
                     sx={textAreaStyle}
-                    value={apiResult}
+                    value={completion}
                     disabled={loading}
                     readOnly={true}
                   />
@@ -252,7 +240,7 @@ export default function Phraser() {
                   />
                   <Textarea
                     sx={textAreaStyle}
-                    value={apiResult}
+                    value={completion}
                     disabled={loading}
                     readOnly={true}
                   />
@@ -274,7 +262,7 @@ export default function Phraser() {
                   />
                   <Textarea
                     sx={textAreaStyle}
-                    value={apiResult}
+                    value={completion}
                     disabled={loading}
                     readOnly={true}
                   />
@@ -296,7 +284,7 @@ export default function Phraser() {
                   />
                   <Textarea
                     sx={textAreaStyle}
-                    value={apiResult}
+                    value={completion}
                     disabled={loading}
                     readOnly={true}
                   />
@@ -318,7 +306,7 @@ export default function Phraser() {
                   />
                   <Textarea
                     sx={textAreaStyle}
-                    value={apiResult}
+                    value={completion}
                     disabled={loading}
                     readOnly={true}
                   />
@@ -340,7 +328,7 @@ export default function Phraser() {
                   />
                   <Textarea
                     sx={textAreaStyle}
-                    value={apiResult}
+                    value={completion}
                     disabled={loading}
                     readOnly={true}
                   />
