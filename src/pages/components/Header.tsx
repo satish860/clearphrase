@@ -10,7 +10,7 @@ export default function Header() {
         p={2}
         verticalAlign="center"
         as="header"
-        position="fixed"
+        position="absolute"
       >
         <Text fontSize="3xl">Clear</Text>
         <Text fontSize="3xl" color="green.600" transform={"rotate(-20deg)"}>
@@ -23,8 +23,8 @@ export default function Header() {
           .io
         </Text>
         <Stack direction="row" ml="auto" alignItems="center">
-          <SignedIn>       
-            <UserButton afterSignOutUrl="/"/>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
           </SignedIn>
           <SignedOut>
             <Link href="/sign-in">
