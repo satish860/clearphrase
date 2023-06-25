@@ -73,7 +73,7 @@ export default function Phraser() {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(apiResult);
+    navigator.clipboard.writeText(completion);
   };
 
   const clearAll = () => {
